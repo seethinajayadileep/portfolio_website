@@ -31,6 +31,9 @@ export default function PageShell({
             <Link className="underline hover:text-[#ddd]" href="/admin">
               Admin
             </Link>
+            <Link className="underline hover:text-[#ddd]" href="/experience">
+              Experience
+            </Link>
             <Link className="underline hover:text-[#ddd]" href="/leetcode">
               LeetCode
             </Link>

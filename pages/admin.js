@@ -7,7 +7,13 @@ const pages = [
     href: "/",
     name: "Home",
     role: "Public landing",
-    note: "About, skills, featured projects, contact. Extra work stays off this page.",
+    note: "Rotating model, about, skills, featured projects, contact. Extra work stays off this page.",
+  },
+  {
+    href: "/experience",
+    name: "Experience",
+    role: "Longer story",
+    note: "How I build, what I am doing now, and what this site should add next.",
   },
   {
     href: "/leetcode",
@@ -41,7 +47,7 @@ export default function AdminPage() {
       title="Admin | Seethina Jaya Dileep"
       eyebrow="ADMIN"
       heading="Site admin"
-      description="Control board for this portfolio. Featured work still lives on the home page. LeetCode, open source, and the full GitHub map each have their own route so the landing page stays short."
+      description="Control board for this portfolio. The rotating model stays on Home. Everything else has its own route."
     >
       <div className="grid sm:grid-cols-3 gap-4 mb-10">
         <div className="border border-white/30 rounded-md p-4 bg-black/60">

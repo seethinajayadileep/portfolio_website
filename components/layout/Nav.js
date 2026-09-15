@@ -10,6 +10,7 @@ const sectionLinks = [
 ];
 
 const pageLinks = [
+  { href: "/experience", label: "Experience" },
   { href: "/leetcode", label: "LeetCode" },
   { href: "/open-source", label: "Open Source" },
   { href: "/github", label: "GitHub" },
@@ -60,7 +61,7 @@ export default function Nav() {
     >
       <div
         className={`w-full justify-center flex p-4 bg-black bg-opacity-75 border-b-[1px] ${
-          menuOpen ? "h-[520px] md:h-fit" : "h-[84px]"
+          menuOpen ? "h-[560px] md:h-fit" : "h-[84px]"
         } transition-all overflow-hidden`}
       >
         <div className="max-w-7xl w-full justify-between xl:justify-around flex-row hidden md:flex gap-4">
@@ -101,7 +102,7 @@ export default function Nav() {
         </div>
         <div
           className={`md:hidden w-full flex flex-col justify-between items-center ${
-            menuOpen ? "h-[470px]" : "h-[48px]"
+            menuOpen ? "h-[510px]" : "h-[48px]"
           }`}
         >
           <div className="flex w-full justify-between items-center">

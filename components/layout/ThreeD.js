@@ -33,13 +33,10 @@ export default function ThreeD() {
   const handleWindowScroll = () => {
     const { current: container } = refContainer;
     if (container && camera && model) {
-      const t = window.pageYOffset;
+      // Stay in the home hero. Do not fly the model through About / Projects.
+      const t = Math.min(window.pageYOffset, 640);
       camera.position.y = -(t * 0.004);
-      if (t >= 700) {
-        model.position.z = (t - 700) / 75;
-      } else {
-        model.position.z = 0;
-      }
+      model.position.z = 0;
     }
   };
 
@@ -53,33 +50,43 @@ export default function ThreeD() {
   }, [renderer, model, handleWindowResize]);
 
   useEffect(() => {
+    let cancelled = false;
+    let rafId = 0;
+    let localRenderer;
+
     (async () => {
       const { current: container } = refContainer;
       if (container && !renderer) {
         const screenH = container.clientHeight;
         const screenW = container.clientWidth;
 
-        const renderer = new THREE.WebGLRenderer({
+        const nextRenderer = new THREE.WebGLRenderer({
           alpha: true,
         });
-        renderer.physicallyCorrectLights = true;
-        renderer.outputEncoding = THREE.sRGBEncoding;
-        renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1;
-        renderer.setSize(screenW, screenH);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        container.appendChild(renderer.domElement);
-        setRenderer(renderer);
+        nextRenderer.physicallyCorrectLights = true;
+        nextRenderer.outputEncoding = THREE.sRGBEncoding;
+        nextRenderer.toneMapping = THREE.ACESFilmicToneMapping;
+        nextRenderer.toneMappingExposure = 1;
+        nextRenderer.setSize(screenW, screenH);
+        nextRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(nextRenderer.domElement);
+        localRenderer = nextRenderer;
+        if (cancelled) {
+          nextRenderer.dispose();
+          nextRenderer.domElement.remove();
+          return;
+        }
+        setRenderer(nextRenderer);
 
-        const camera = new THREE.PerspectiveCamera(
+        const nextCamera = new THREE.PerspectiveCamera(
           75,
           screenW / screenH,
           0.01,
           100
         );
-        setCamera(camera);
-        camera.position.set(0, 0, 0);
-        scene.add(camera);
+        setCamera(nextCamera);
+        nextCamera.position.set(0, 0, 0);
+        scene.add(nextCamera);
 
         const ambientLight = new THREE.AmbientLight(0xffffff, 2);
         scene.add(ambientLight);
@@ -99,42 +106,48 @@ export default function ThreeD() {
           scene
         );
 
-        const { mixer, model } = await ModelLoader(
-          scene,
-          "/astronaut/scene.gltf",
-          {
-            castShadow: false,
-            receiveShadow: false,
-            scalar: 0.3,
-            timeScale: 1 / 25,
-          }
-        );
-        setMixer(mixer);
-        setModel(model);
+        const loaded = await ModelLoader(scene, "/astronaut/scene.gltf", {
+          castShadow: false,
+          receiveShadow: false,
+          scalar: 0.3,
+          timeScale: 1 / 25,
+        });
+        if (cancelled) return;
+        setMixer(loaded.mixer);
+        setModel(loaded.model);
 
         const clock = new THREE.Clock();
         let previousTime = 0;
 
-        const RAF = () => {
+        const tick = () => {
+          if (cancelled) return;
           const elapsedTime = clock.getElapsedTime();
           const deltaTime = elapsedTime - previousTime;
           previousTime = elapsedTime;
 
-          if (mixer) mixer.update(deltaTime * 10);
-          if (model) updateModel(model, deltaTime * 10);
+          if (loaded.mixer) loaded.mixer.update(deltaTime * 10);
+          if (loaded.model) updateModel(loaded.model, deltaTime * 10);
 
-          camera.lookAt(target);
+          nextCamera.lookAt(target);
 
-          renderer.render(scene, camera);
-          requestAnimationFrame(RAF);
+          nextRenderer.render(scene, nextCamera);
+          rafId = requestAnimationFrame(tick);
         };
 
-        RAF();
+        tick();
       }
     })();
     return () => {
-      cancelAnimationFrame(requestAnimationFrame(RAF));
-      renderer.dispose();
+      cancelled = true;
+      cancelAnimationFrame(rafId);
+      if (localRenderer) {
+        localRenderer.dispose();
+        if (localRenderer.domElement && localRenderer.domElement.parentNode) {
+          localRenderer.domElement.parentNode.removeChild(
+            localRenderer.domElement
+          );
+        }
+      }
     };
   }, []);
 
@@ -147,13 +160,9 @@ export default function ThreeD() {
   useEffect(() => {
     const { current: container } = refContainer;
     if (container && camera && model) {
-      const t = window.pageYOffset;
+      const t = Math.min(window.pageYOffset, 640);
       camera.position.y = -(t * 0.004);
-      if (t >= 700) {
-        model.position.z = (t - 700) / 75;
-      } else {
-        model.position.z = 0;
-      }
+      model.position.z = 0;
     }
   }, [model, camera]);
 
