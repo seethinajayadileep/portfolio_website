@@ -38,6 +38,13 @@ export default function Footer() {
             © Copyright | Seethina Jaya Dileep{" "}
           </p>
         </div>
+        <div className="flex w-full justify-center flex-wrap gap-3 pb-3 text-xs font-semibold">
+          <a href="/">Home</a>
+          <a href="/leetcode">LeetCode</a>
+          <a href="/open-source">Open Source</a>
+          <a href="/github">GitHub</a>
+          <a href="/admin">Admin</a>
+        </div>
       </div>
     </footer>
   );
