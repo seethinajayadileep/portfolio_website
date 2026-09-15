@@ -1,9 +1,8 @@
-name: test-seethinajayadileep
-# Cheap PR gate for the named test subdomain. www is the live site and is not used here.
-# Security is read-only (headers, cookies, CORS).
-target: https://test.seethinajayadileep.dev
+name: www-seethinajayadileep
+# Cheap PR gate for the live website. Security is read-only (headers, cookies, CORS).
+target: https://www.seethinajayadileep.dev
 allow:
-  - test.seethinajayadileep.dev
+  - www.seethinajayadileep.dev
 budget:
   maxMinutes: 8
   maxLlmCalls: 0
