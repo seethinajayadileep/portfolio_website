@@ -30,22 +30,10 @@ export default function ThreeD() {
     }
   };
 
-  const handleWindowScroll = () => {
-    const { current: container } = refContainer;
-    if (container && camera && model) {
-      // Stay in the home hero. Do not fly the model through About / Projects.
-      const t = Math.min(window.pageYOffset, 640);
-      camera.position.y = -(t * 0.004);
-      model.position.z = 0;
-    }
-  };
-
   useEffect(() => {
     window.addEventListener("resize", handleWindowResize, false);
-    window.addEventListener("scroll", handleWindowScroll, false);
     return () => {
       window.removeEventListener("resize", handleWindowResize, false);
-      window.removeEventListener("scroll", handleWindowScroll, false);
     };
   }, [renderer, model, handleWindowResize]);
 
@@ -156,15 +144,6 @@ export default function ThreeD() {
       setLoading(false);
     }
   }, [mixer]);
-
-  useEffect(() => {
-    const { current: container } = refContainer;
-    if (container && camera && model) {
-      const t = Math.min(window.pageYOffset, 640);
-      camera.position.y = -(t * 0.004);
-      model.position.z = 0;
-    }
-  }, [model, camera]);
 
   return <LoaderContainer loading={loading} ref={refContainer} />;
 }

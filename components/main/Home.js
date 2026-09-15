@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import ScrollIcon from "./home/ScrollIcon";
+import ThreeD from "../layout/ThreeD";
 import { SiGithub, SiLinkedin } from "react-icons/si";
 
 const divVariants = {
@@ -60,8 +61,9 @@ export default function Home() {
           initial="hidden"
           animate={controls}
           ref={ref}
-          className="flex justify-center mx-auto border-x-0 2xl:border-x-2 bg-home w-full h-[640px] bg-cover text-white"
+          className="relative overflow-hidden flex justify-center mx-auto border-x-0 2xl:border-x-2 bg-home w-full h-[640px] bg-cover text-white"
         >
+          <ThreeD />
           <motion.div
             variants={innerDivVariants}
             initial="hidden"
