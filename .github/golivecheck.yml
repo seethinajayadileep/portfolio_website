@@ -1,5 +1,6 @@
 # Copy this file to .github/workflows/golivecheck.yml (this App cannot write workflow files).
-# Cheap PR gate: security + a11y + API against the live www host. No LLM key.
+# Cheap PR gate: security + a11y + API against test.seethinajayadileep.dev. No LLM key.
+# www is the live site and is not the target.
 name: golivecheck
 on:
   pull_request:
@@ -13,7 +14,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: seethinajayadileep/golivecheck@main
         with:
-          target: https://www.seethinajayadileep.dev
-          allow: www.seethinajayadileep.dev
+          target: https://test.seethinajayadileep.dev
+          allow: test.seethinajayadileep.dev
           config: golivecheck.config.yaml
           only: security,a11y,api
