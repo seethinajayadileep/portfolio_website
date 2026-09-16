@@ -9,14 +9,6 @@ const sectionLinks = [
   { href: "/#contact", label: "Contact" },
 ];
 
-const pageLinks = [
-  { href: "/experience", label: "Experience" },
-  { href: "/leetcode", label: "LeetCode" },
-  { href: "/open-source", label: "Open Source" },
-  { href: "/github", label: "GitHub" },
-  { href: "/admin", label: "Admin" },
-];
-
 export default function Nav() {
   const myMenu = useRef();
   const navBar = useRef();
@@ -41,7 +33,7 @@ export default function Nav() {
       } else {
         myMenu.current.classList.remove("menuopen");
         setMenuOpen(false);
-        navBar.current.style.top = "-90px";
+        navBar.current.style.top = "-74px";
       }
       setPrevScroll(currentScroll);
     }
@@ -61,10 +53,10 @@ export default function Nav() {
     >
       <div
         className={`w-full justify-center flex p-4 bg-black bg-opacity-75 border-b-[1px] ${
-          menuOpen ? "h-[560px] md:h-fit" : "h-[84px]"
+          menuOpen ? "h-[340px] md:h-fit" : "h-[69px]"
         } transition-all overflow-hidden`}
       >
-        <div className="max-w-7xl w-full justify-between xl:justify-around flex-row hidden md:flex gap-4">
+        <div className="max-w-7xl w-full justify-between xl:justify-around flex-row hidden md:flex">
           <div className="flex font-nav text-3xl font-extrabold items-center">
             <Link
               href="/"
@@ -75,34 +67,27 @@ export default function Nav() {
               <span className="pl-2">{"/>"}</span>
             </Link>
           </div>
-          <div className="flex flex-col justify-center items-end font-extrabold font-home text-sm lg:text-base">
-            <div className="flex flex-wrap justify-end">
-              {sectionLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="pr-3 hover:text-[#ddd] hover:scale-110 transition-all"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-            <div className="flex flex-wrap justify-end pt-1 text-[#ddd]">
-              {pageLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="pr-3 hover:text-white hover:scale-110 transition-all"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
+          <div className="flex justify-center items-center font-extrabold font-home">
+            {sectionLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="pr-3 hover:text-[#ddd] hover:scale-110 transition-all"
+              >
+                {link.label}
+              </a>
+            ))}
+            <Link
+              href="/experience"
+              className="hover:text-[#ddd] hover:scale-110 transition-all"
+            >
+              Experience
+            </Link>
           </div>
         </div>
         <div
           className={`md:hidden w-full flex flex-col justify-between items-center ${
-            menuOpen ? "h-[510px]" : "h-[48px]"
+            menuOpen ? "h-[300px]" : "h-[35px]"
           }`}
         >
           <div className="flex w-full justify-between items-center">
@@ -136,27 +121,23 @@ export default function Nav() {
               menuOpen ? "" : "opacity-0 pointer-events-none z-10"
             }  transition-all`}
           >
-            {[...sectionLinks, ...pageLinks].map((link) =>
-              link.href.startsWith("/#") ? (
-                <a
-                  key={link.href}
-                  onClick={handleMenuClick}
-                  href={link.href}
-                  className="p-2 hover:text-[#ddd] hover:scale-110 transition-all"
-                >
-                  {link.label}
-                </a>
-              ) : (
-                <Link
-                  key={link.href}
-                  onClick={handleMenuClick}
-                  href={link.href}
-                  className="p-2 hover:text-[#ddd] hover:scale-110 transition-all"
-                >
-                  {link.label}
-                </Link>
-              )
-            )}
+            {sectionLinks.map((link) => (
+              <a
+                key={link.href}
+                onClick={handleMenuClick}
+                href={link.href}
+                className="p-3 hover:text-[#ddd] hover:scale-110 transition-all"
+              >
+                {link.label}
+              </a>
+            ))}
+            <Link
+              onClick={handleMenuClick}
+              href="/experience"
+              className="p-3 hover:text-[#ddd] hover:scale-110 transition-all"
+            >
+              Experience
+            </Link>
           </div>
         </div>
       </div>

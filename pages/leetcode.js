@@ -35,6 +35,7 @@ export default function LeetCodePage() {
       title="LeetCode | Seethina Jaya Dileep"
       eyebrow="LEETCODE"
       heading="Problems I am solving"
+      unlisted
       description="These are the LeetCode slugs from my public Notes repository (C++ under leetcode/). This list is a separate page on purpose — it is not mixed into the home page."
     >
       <p className="mb-6 font-semibold">

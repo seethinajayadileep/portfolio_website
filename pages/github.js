@@ -12,6 +12,7 @@ export default function GitHubPage() {
       title="GitHub profile | Seethina Jaya Dileep"
       eyebrow="GITHUB"
       heading="Public GitHub profile, explained"
+      unlisted
       description="How a public GitHub profile is put together, then every public repository under seethinajayadileep and how that project actually runs. Kept off the home page so this map can stay long."
     >
       <div className="border border-white/30 rounded-md p-5 bg-black/60 mb-10">

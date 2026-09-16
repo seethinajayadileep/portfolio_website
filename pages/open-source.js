@@ -10,6 +10,7 @@ export default function OpenSourcePage() {
       title="Open Source | Seethina Jaya Dileep"
       eyebrow="OPEN SOURCE"
       heading="Open source showcase"
+      unlisted
       description="Pull requests on other people's repositories, plus public forks I keep while reading or patching upstream. This is its own page so the home page only shows original product work."
     >
       <h2 className="font-home text-2xl font-bold mb-4">Upstream pull requests</h2>
