@@ -1,4 +1,13 @@
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
+
+const sectionLinks = [
+  { href: "/#home", label: "Home" },
+  { href: "/#about", label: "About" },
+  { href: "/#skills", label: "Skills" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/#contact", label: "Contact" },
+];
 
 export default function Nav() {
   const myMenu = useRef();
@@ -44,71 +53,65 @@ export default function Nav() {
     >
       <div
         className={`w-full justify-center flex p-4 bg-black bg-opacity-75 border-b-[1px] ${
-          menuOpen ? "h-[308px] md:h-fit" : "h-[69px]"
-        } transition-all`}
+          menuOpen ? "h-[340px] md:h-fit" : "h-[69px]"
+        } transition-all overflow-hidden`}
       >
         <div className="max-w-7xl w-full justify-between xl:justify-around flex-row hidden md:flex">
-          <div className="flex font-nav text-3xl font-extrabold">
-            <a
-              href="#"
-              className="cursor-pointer hover:text-[#ddd] hover:scale-110 transition-all"
+          <div className="flex font-nav text-3xl font-extrabold items-center">
+            <Link
+              href="/"
+              className="hover:text-[#ddd] hover:scale-110 transition-all"
             >
               <span>{"<"}</span>
               <span>Seethina Jaya Dileep</span>
               <span className="pl-2">{"/>"}</span>
-            </a>
+            </Link>
           </div>
           <div className="flex justify-center items-center font-extrabold font-home">
-            <a
-              href="#home"
-              className="pr-3 cursor-pointer hover:text-[#ddd] hover:scale-110 transition-all"
+            {sectionLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="pr-3 hover:text-[#ddd] hover:scale-110 transition-all"
+              >
+                {link.label}
+              </a>
+            ))}
+            <Link
+              href="/experience"
+              className="hover:text-[#ddd] hover:scale-110 transition-all"
             >
-              Home
-            </a>
-            <a
-              href="#about"
-              className="pr-3 cursor-pointer hover:text-[#ddd] hover:scale-110 transition-all"
-            >
-              About
-            </a>
-            <a
-              href="#skills"
-              className="pr-3 cursor-pointer hover:text-[#ddd] hover:scale-110 transition-all"
-            >
-              Skills
-            </a>
-            <a
-              href="#projects"
-              className="pr-3 cursor-pointer hover:text-[#ddd] hover:scale-110 transition-all"
-            >
-              Projects
-            </a>
-            <a
-              href="#contact"
-              className="cursor-pointer hover:text-[#ddd] hover:scale-110 transition-all"
-            >
-              Contact
-            </a>
+              Experience
+            </Link>
           </div>
         </div>
         <div
           className={`md:hidden w-full flex flex-col justify-between items-center ${
-            menuOpen ? "h-[275px]" : "h-[35px]"
+            menuOpen ? "h-[300px]" : "h-[35px]"
           }`}
         >
           <div className="flex w-full justify-between items-center">
-            <a
-              href="#"
-              className="cursor-pointer font-extrabold font-nav text-xl hover:text-[#ddd] hover:scale-110 transition-all whitespace-nowrap"
+            <Link
+              href="/"
+              className="font-extrabold font-nav text-xl hover:text-[#ddd] hover:scale-110 transition-all whitespace-nowrap"
             >
               <span>{"<"}</span>
               <span>Seethina Jaya Dileep</span>
               <span className="pl-2">{"/>"}</span>
-            </a>
+            </Link>
             <div
               ref={myMenu}
               onClick={handleMenuClick}
-              className="py-4 mx-5 cursor-pointer"
+              className="py-4 mx-5"
+              role="button"
+              tabIndex={0}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  handleMenuClick();
+                }
+              }}
+              aria-label="Open menu"
             >
               <div className="myBurguer"></div>
             </div>
@@ -118,41 +121,23 @@ export default function Nav() {
               menuOpen ? "" : "opacity-0 pointer-events-none z-10"
             }  transition-all`}
           >
-            <a
+            {sectionLinks.map((link) => (
+              <a
+                key={link.href}
+                onClick={handleMenuClick}
+                href={link.href}
+                className="p-3 hover:text-[#ddd] hover:scale-110 transition-all"
+              >
+                {link.label}
+              </a>
+            ))}
+            <Link
               onClick={handleMenuClick}
-              href="#home"
-              className="p-3 cursor-pointer hover:text-[#ddd] hover:scale-110 transition-all"
+              href="/experience"
+              className="p-3 hover:text-[#ddd] hover:scale-110 transition-all"
             >
-              Home
-            </a>
-            <a
-              onClick={handleMenuClick}
-              href="#about"
-              className="p-3 cursor-pointer hover:text-[#ddd] hover:scale-110 transition-all"
-            >
-              About
-            </a>
-            <a
-              onClick={handleMenuClick}
-              href="#skills"
-              className="p-3 cursor-pointer hover:text-[#ddd] hover:scale-110 transition-all"
-            >
-              Skills
-            </a>
-            <a
-              onClick={handleMenuClick}
-              href="#projects"
-              className="p-3 cursor-pointer hover:text-[#ddd] hover:scale-110 transition-all"
-            >
-              Projects
-            </a>
-            <a
-              onClick={handleMenuClick}
-              href="#contact"
-              className="p-3 cursor-pointer hover:text-[#ddd] hover:scale-110 transition-all"
-            >
-              Contact
-            </a>
+              Experience
+            </Link>
           </div>
         </div>
       </div>

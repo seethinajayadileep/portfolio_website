@@ -14,6 +14,26 @@ jobs:
     name: home
     url: /
     tags: [wcag2aa]
+  - type: a11y
+    name: experience
+    url: /experience
+    tags: [wcag2aa]
+  - type: a11y
+    name: leetcode
+    url: /leetcode
+    tags: [wcag2aa]
+  - type: a11y
+    name: open-source
+    url: /open-source
+    tags: [wcag2aa]
+  - type: a11y
+    name: github
+    url: /github
+    tags: [wcag2aa]
+  - type: a11y
+    name: admin
+    url: /admin
+    tags: [wcag2aa]
   - type: api
     name: health
     requests:
