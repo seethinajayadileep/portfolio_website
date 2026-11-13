@@ -36,6 +36,9 @@ export default function Footer() {
         <div className="flex w-full justify-center border-t-[1px] border-black">
           <p className="p-2 pt-3 text-xs text-bold">
             © Copyright | Seethina Jaya Dileep{" "}
+            <a href="/seatspot-privacy" className="underline">
+              SeatSpot Privacy
+            </a>
           </p>
         </div>
       </div>
